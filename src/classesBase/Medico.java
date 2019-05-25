@@ -1,5 +1,7 @@
 package classesBase;
 
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 
 public class Medico {
@@ -21,6 +23,11 @@ public class Medico {
 			this.especializacao.add(especializacao[i]);
 		}
 		this.status = true;
+	}
+
+	public String toJson(){
+		Gson gson = new Gson();
+		return gson.toJson(this);
 	}
 
 	public boolean isStatus() {

@@ -6,13 +6,16 @@ import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 
 import classesBase.Hospital;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import org.bson.Document;
 
 public class ConHospital {
 	MongoClient mongoClient = new MongoClient(new MongoClientURI("mongodb://localhost:27017"));
+	MongoDatabase db = mongoClient.getDatabase("hospitalTop");
+	MongoCollection<Document> collection = db.getCollection("hospital");
 
 	public void inserir(Object o) {
-		
-		
 
 	}
 
