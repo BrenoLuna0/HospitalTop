@@ -12,10 +12,10 @@ public class Paciente {
 	private int ID;
 	private String nome;
 	private String cpf;
-	private long contato;
+	private String contato;
 	private ArrayList<String> remediosComAlergia;
 
-	public Paciente(String nome, String cpf, long contato, String[] remedios) {
+	public Paciente(String nome, String cpf, String contato, String[] remedios) {
 		this.ID = ID_GENERATOR +1;
 		this.nome = nome;
 		this.cpf = cpf;
@@ -54,7 +54,7 @@ public class Paciente {
 		return cpf;
 	}
 
-	public long getContato() {
+	public String getContato() {
 		return contato;
 	}
 
