@@ -1,5 +1,7 @@
 package classesBase;
 
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -12,11 +14,7 @@ public class Paciente {
 	private String cpf;
 	private long contato;
 	private ArrayList<String> remediosComAlergia;
-	
-	
-	
-	
-	
+
 	public Paciente(String nome, String cpf, long contato, String[] remedios) {
 		this.ID = ID_GENERATOR +1;
 		this.nome = nome;
@@ -27,20 +25,16 @@ public class Paciente {
 		for(int i = 0; i < remedios.length; i++) {
 			this.remediosComAlergia.add(remedios[i]);
 		}
-		
 	}
-	
-	
 
-
+	public String toJson(){
+		Gson gson = new Gson();
+		return gson.toJson(this);
+	}
 
 	public ArrayList<String> getRemediosComAlergia() {
 		return remediosComAlergia;
 	}
-
-
-
-
 
 	public void setRemediosComAlergia(String[] remedios) {
 		for(int i = 0; i < remedios.length; i++) {
@@ -48,44 +42,23 @@ public class Paciente {
 		}
 	}
 
-
-
-
-
 	public int getID() {
 		return ID;
 	}
-
-
-
-
 
 	public String getNome() {
 		return nome;
 	}
 
-
-
-
-
 	public String getCpf() {
 		return cpf;
 	}
-
-
-
-
 
 	public long getContato() {
 		return contato;
 	}
 
-
-
-
-
 	public void solicitarConsulta(String[] sintomas, Date data) {
 		
 	}
-
 }
