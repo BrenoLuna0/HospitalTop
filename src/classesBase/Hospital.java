@@ -1,5 +1,7 @@
 package classesBase;
 
+import com.google.gson.Gson;
+
 public class Hospital {
 	static final int ID_GENERATOR = 0;
 	
@@ -7,10 +9,10 @@ public class Hospital {
 	private String razaoSocial;
 	private String cnpj;
 	private String endereco;
-	private long contato;
+	private String contato;
 	private boolean status;
 	
-	public Hospital(String razaoSocial, String cnpj, String endereco, long contato) {
+	public Hospital(String razaoSocial, String cnpj, String endereco, String contato) {
 		ID = ID_GENERATOR +1;
 		this.razaoSocial = razaoSocial;
 		this.cnpj = cnpj;
@@ -18,6 +20,11 @@ public class Hospital {
 		this.contato = contato;
 		this.status = true;
 		
+	}
+	
+	public String toJson(){
+		Gson gson = new Gson();
+		return gson.toJson(this);
 	}
 
 	public String getEndereco() {
@@ -40,7 +47,7 @@ public class Hospital {
 		return cnpj;
 	}
 
-	public long getContato() {
+	public String getContato() {
 		return contato;
 	}
 
