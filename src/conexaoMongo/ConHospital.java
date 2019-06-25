@@ -2,13 +2,12 @@ package conexaoMongo;
 
 import java.util.ArrayList;
 
-import classesBase.Constantes;
+import util.Constantes;
 import classesBase.Hospital;
 import com.google.gson.Gson;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 
-import classesBase.Hospital;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
