@@ -29,9 +29,6 @@ public class ServerMulticast extends Thread{
             /*Cria uma thread para tratar cada conexão*/
             ThreadConn conn = new ThreadConn(multicastSocket, pct_recebido);
             conn.start();
-
-            //serv = new ServidorUnicast(Servidor.getPortaUnicast());
-            //serv.start();
         }
     }
 

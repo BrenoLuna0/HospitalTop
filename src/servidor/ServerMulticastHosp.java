@@ -31,7 +31,7 @@ public class ServerMulticastHosp extends Thread{
 
             //O primeiro char indica quem enviou o pacote (S = Servidor / H = Hospital)
             if(new String(packet.getData()).charAt(0) == 'H'){
-                System.out.println("recebido >> ("+ packet.getAddress() + ":" + packet.getPort() + ") : "+ new String(packet.getData()).trim());
+                System.out.println("recebido >> ("+ packet.getAddress() + ":" + packet.getPort() + ") : "+ new String(packet.getData()).substring(1).trim());
                 matarServerMulticast();
                 return new String(packet.getData()).substring(1).trim();
             }

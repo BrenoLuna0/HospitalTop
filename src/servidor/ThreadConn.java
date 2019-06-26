@@ -64,6 +64,11 @@ public class ThreadConn extends Thread {
         serverHosp.enviarMsg("S" + infos[1]);
         String ipPortaHospital = serverHosp.aguardarHospital(); //TODO fica aguardando indeterminado, colocar um timeout?
 
+        if (ipPortaHospital.isEmpty()){
+            System.out.println("Hospital não encontrado (Especialidade: "+infos[1]+")");
+            return;
+        }
+
         //Conectar a hospital e gerar consulta
         UnicastHosp unicastHosp = new UnicastHosp(ipPortaHospital);
         String consulta = unicastHosp.start(paciente.toJson());

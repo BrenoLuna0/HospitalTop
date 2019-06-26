@@ -2,6 +2,10 @@ package util;
 
 public enum Constantes {
 
+    /*
+     * Constantes importantes que devem ser verificadas ao trocar de rede, IP, Computador...
+     * */
+
     BD_ADDRESS("localhost"),
     BD_PORT("27017"),
     BD_NAME("hospitalTop"),

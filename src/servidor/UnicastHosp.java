@@ -8,7 +8,7 @@ public class UnicastHosp {
 	private int port;
 
 	public UnicastHosp(String ipPorta) {
-		String data[] = ipPorta.split(",");
+		String data[] = ipPorta.split(":");
 		this.address = data[0];
 		this.port = Integer.parseInt(data[1]);
 	}
@@ -18,8 +18,8 @@ public class UnicastHosp {
 		try {
 			s = new Socket(this.address, this.port);
 
-			//TODO Enviar msg
-			//TODO receber resposta
+			//TODO Enviar msg e fazer toda a interação para gerar consulta com mod hospital
+			//TODO receber resposta (Consulta)
 			
 		}catch(Exception e) {
 			e.printStackTrace();
