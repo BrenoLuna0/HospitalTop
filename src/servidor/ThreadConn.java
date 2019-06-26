@@ -29,7 +29,7 @@ public class ThreadConn extends Thread {
             //TODO Inserir o tipo de operação na msg no MULE (Ex: "I,Filipe,11379070587,914885478,[dorflex]" ou "C,Pediatria,11379070587")
             char op = 'c';
 
-            msg = "121211,Pediatria"; //TODO Remover ao ajustar tipoDeOperação no MULE
+            msg = "121211,Pediatria"; //TODO Remover ao ajustar tipoDeOperação no MULE, remover o primeiro caracter ao receber do mule
 
             switch (op){
                 case 'I':
@@ -52,18 +52,20 @@ public class ThreadConn extends Thread {
         String[] infos = msg.split(",");
 
         //Buscar paciente pelo CPF
-        Paciente paciente = paciente = new ConPaciente().buscarPorCpf(infos[0]);
+        Paciente paciente = new ConPaciente().buscarPorCpf(infos[0]);
+        if (paciente == null){
+            System.out.println("Paciente não encontrado (CPF: "+infos[0]+")");
+            return;
+        }
 
         //Buscar hospital disponível para atender a especialidade
-        ServerMulticast serverHosp = new ServerMulticast(Constantes.MC_HOSP_IP.getValor(), Constantes.MC_HOSP_PORT.getValor());
-        serverHosp.enviarMsg(infos[1]);
-        DatagramPacket dPHosp = serverHosp.receberResposta(); //TODO fica aguardando indeterminado
-
-        //Tratar pacote recebido do hospital (recebe: x,y [x = IP, y = porta])
-        String ipPorta = new String(dPHosp.getData(), 0, dPHosp.getLength());
+        ServerMulticastHosp serverHosp = new ServerMulticastHosp(Constantes.MC_HOSP_IP.getValor(), Constantes.MC_HOSP_PORT.getValor());
+        //'S' identifica que o servidor enviou a msg
+        serverHosp.enviarMsg("S" + infos[1]);
+        String ipPortaHospital = serverHosp.aguardarHospital(); //TODO fica aguardando indeterminado, colocar um timeout?
 
         //Conectar a hospital e gerar consulta
-        UnicastHosp unicastHosp = new UnicastHosp(ipPorta);
+        UnicastHosp unicastHosp = new UnicastHosp(ipPortaHospital);
         String consulta = unicastHosp.start(paciente.toJson());
 
         //TODO Imprimir informações da consulta
