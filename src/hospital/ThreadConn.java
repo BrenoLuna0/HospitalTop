@@ -21,6 +21,7 @@ public class ThreadConn extends Thread {
     public void run() {
     	try {
             //O primeiro char indica quem enviou o pacote (S = Servidor / H = Hospital)
+            System.out.println("recebido >> ("+ packet.getAddress() + ":" + packet.getPort() + ") : "+ new String(packet.getData()).substring(1).trim());
             if(new String(packet.getData()).charAt(0) == 'S'){
                 System.out.println("recebido >> ("+ packet.getAddress() + ":" + packet.getPort() + ") : "+ new String(packet.getData()).substring(1).trim());
                 if (verificarEspecialidade(new String(packet.getData()).substring(1).trim())){

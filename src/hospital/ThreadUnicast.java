@@ -18,7 +18,22 @@ public class ThreadUnicast extends Thread {
 		try {
 			
 			while(true) {
-				//TODO Criar parte de interagir com o servidor via unicast para realizar a consulta
+				InputStream is = socket.getInputStream();
+
+				DataInputStream dis = new DataInputStream(is);
+
+				String dados = dis.readUTF();
+
+				dados = dados + ", data: 26//6, as 16:00";
+
+				OutputStream os = socket.getOutputStream();
+
+				DataOutputStream dos = new DataOutputStream(os);
+
+				dos.writeUTF(dados);
+
+				dos.flush();
+
 			}
 			
 		}catch(Exception e) {
