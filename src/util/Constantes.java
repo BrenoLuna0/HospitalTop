@@ -2,11 +2,12 @@ package util;
 
 public enum Constantes {
 
-    BD_ADDRESS("localhost"),
-    BD_PORT("27017"),
-    BD_NAME("hospitalTop"),
-    MC_MULE_IP("230.231.232.233"),
-    MC_MULE_PORT("1234"),
+    /*
+    * Constantes importantes que devem ser verificadas ao trocar de rede, IP, Computador...
+    * */
+
+    UC_IP("192.168.0.178"),
+    UC_PORT("1235"),
     MC_HOSP_IP("230.231.232.234"),
     MC_HOSP_PORT("1234");
 

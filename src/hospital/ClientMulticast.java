@@ -1,38 +1,42 @@
-package servidor;
+package hospital;
 
 import java.io.IOException;
-import java.net.*;
+import java.net.DatagramPacket;
+import java.net.InetAddress;
+import java.net.MulticastSocket;
+import java.net.UnknownHostException;
 
-public class ServerMulticast extends Thread{
+public class ClientMulticast extends Thread{
 
     private int porta;
     private InetAddress ipGrupo = null;
     private MulticastSocket multicastSocket = null;
 
-    public ServerMulticast(String ip, String porta){
+    public ClientMulticast(String ip, String porta){
         setIpPortaGrupo(ip, porta);
     }
 
     @Override
     public void run() {
         entrarNoGrupoMulticast();
-        responderRequisicoes();
+        monitorarRequests();
     }
 
-    private void responderRequisicoes() {
+    /**
+     * Entra no grupo multicast e responde caso possa atender a requisição
+     */
+    private void monitorarRequests() {
 
         /*Aguardar requests*/
-        System.out.println("Esperando conexões multicast...");
+        System.out.println("Esperando requisições multicast...");
         while (multicastSocket != null){
             DatagramPacket pct_recebido = receberResposta();
 
             /*Cria uma thread para tratar cada conexão*/
             ThreadConn conn = new ThreadConn(multicastSocket, pct_recebido);
             conn.start();
-
-            //serv = new ServidorUnicast(Servidor.getPortaUnicast());
-            //serv.start();
         }
+
     }
 
     /**
@@ -128,6 +132,4 @@ public class ServerMulticast extends Thread{
             e.printStackTrace();
         }
     }
-
-
 }
