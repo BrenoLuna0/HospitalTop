@@ -23,21 +23,20 @@ public class ThreadConn extends Thread {
     	try {
             //Tratar se é inserção ou gerarConsulta
             String msg = new String(packet.getData(), 0, packet.getLength());
-            msg = msg.substring(1, msg.length()- 1);
+            msg = msg.substring(1, msg.length()-1);
+            char op = msg.charAt(0);
+            msg = msg.substring(1);
 
-            System.out.println("Msg Recebida:"+msg);
-            //TODO Inserir o tipo de operação na msg no MULE (Ex: "I,Filipe,11379070587,914885478,[dorflex]" ou "C,Pediatria,11379070587")
-            char op = 'c';
-
-            msg = "121211,Pediatria"; //TODO Remover ao ajustar tipoDeOperação no MULE, remover o primeiro caracter ao receber do mule
+            System.out.println("Msg Recebida: "+msg);
+            //O primeiro char indica a operação (I = Inserir Paciente / C = Gerar consulta
 
             switch (op){
-                case 'I':
                 case 'i':   inserirPaciente(msg);
-                            break;
-                case 'C':
+                    break;
                 case 'c':   gerarConsulta(msg);
-                            break;
+                    break;
+                default:
+                    break;
             }
 
     		
@@ -71,13 +70,14 @@ public class ThreadConn extends Thread {
 
         //Conectar a hospital e gerar consulta
         UnicastHosp unicastHosp = new UnicastHosp(ipPortaHospital);
-        String consulta = unicastHosp.start(paciente.toJson());
+        String consulta = unicastHosp.start(paciente.getNome(), paciente.getContato());
 
         //TODO Imprimir informações da consulta
         System.out.println(consulta);
     }
 
     private void inserirPaciente(String info){
+        System.out.println("Chegou no inserir");
         Paciente p = MontarString.montarPaciente(info);
         new ConPaciente().inserir(p);
     }

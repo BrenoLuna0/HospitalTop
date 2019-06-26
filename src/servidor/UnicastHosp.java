@@ -1,5 +1,9 @@
 package servidor;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.Socket;
 
 public class UnicastHosp {
@@ -13,18 +17,32 @@ public class UnicastHosp {
 		this.port = Integer.parseInt(data[1]);
 	}
 	
-	public String start(String msg) {
+	public String start(String nome, String contato) {
+	    String result = "";
 		
 		try {
 			s = new Socket(this.address, this.port);
 
-			//TODO Enviar msg e fazer toda a interação para gerar consulta com mod hospital
-			//TODO receber resposta (Consulta)
+			String msg = nome + "," + contato;
+
+            OutputStream os = s.getOutputStream();
+            DataOutputStream dos = new DataOutputStream(os);
+
+            dos.writeUTF(msg);
+
+            dos.flush();
+
+            InputStream is = s.getInputStream();
+            DataInputStream dis = new DataInputStream(is);
+
+            result = dis.readUTF();
+
+
 			
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		return "";
+		return result;
 	}
 
 }

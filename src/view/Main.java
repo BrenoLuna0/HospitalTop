@@ -9,7 +9,7 @@ public class Main {
 	public static void main(String[] args) {
 
         ServerMulticast serverMulticastMule = new ServerMulticast(Constantes.MC_MULE_IP.getValor(), Constantes.MC_MULE_PORT.getValor());
-        serverMulticastMule.run();
+        serverMulticastMule.start();
 
 	}
 
